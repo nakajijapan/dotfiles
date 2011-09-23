@@ -1,0 +1,9 @@
+K 13
+svn:externals
+V 163
+doc-base https://svn.php.net/repository/phpdoc/doc-base/trunk
+en https://svn.php.net/repository/phpdoc/en/trunk
+ja https://svn.php.net/repository/phpdoc/ja/trunk
+
+
+END
