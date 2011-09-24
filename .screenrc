@@ -1,0 +1,4 @@
+escape ^Jj
+caption always "%{= wb} %-w%{=bu yr}%n %t%{-}%+w %{=b wk}  %{=b wb}%Y/%m/%d %{=b wm}[%c]"
+
+
