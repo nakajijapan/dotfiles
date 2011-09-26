@@ -442,7 +442,7 @@ alias gw='git wtf'
 alias gc='git clone --recursive'
 
 case "${TERM}" in
-screen)
+screen|screen-256color)
     TERM=xterm
     ;;
 esac
