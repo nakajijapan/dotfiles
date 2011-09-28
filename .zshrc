@@ -529,9 +529,11 @@ setopt always_last_prompt    # カーソル位置は保持したままファイ�
 #setopt extended_glob        # 拡張グロブで補完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
 #setopt globdots             # 明確なドットの指定なしで.から始まるファイルをマッチ
 
-## function
-##
+#-------------------------------------------------------
+# function
+#-------------------------------------------------------
+## history
 #
-# history
 function hisall { history -E 1 } # 全履歴の一覧を出力する
 alias his="history"
+
