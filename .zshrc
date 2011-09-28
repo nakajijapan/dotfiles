@@ -537,11 +537,12 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*:messages' format $YELLOW'%B%d%b'$DEFAULT
 #
-zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
+#zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
+zstyle ':completion:*:warnings' format "%{${fg[white]}}%}No mathes for %d%{${reset_color}%}" 
 #zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:descriptions' format "%{${fg[black]}${bg[blue]}%}completing %B%d%b%{${reset_color}%}"
-zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
-zstyle ':completion:*:options' description 'yes'
+#zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
+#zstyle ':completion:*:options' description 'yes'
 
 #-------------------------------------------------------
 # function
