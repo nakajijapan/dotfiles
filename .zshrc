@@ -529,6 +529,20 @@ setopt always_last_prompt    # カーソル位置は保持したままファイ�
 #setopt extended_glob        # 拡張グロブで補完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
 #setopt globdots             # 明確なドットの指定なしで.から始まるファイルをマッチ
 
+# 十字キーで保管を移動できる
+zstyle ':completion:*:default' menu select=2
+
+# 補完関数の表示を過剰にしてみる
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format $YELLOW'%B%d%b'$DEFAULT
+#
+zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
+#zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
+zstyle ':completion:*:descriptions' format "%{${fg[black]}${bg[blue]}%}completing %B%d%b%{${reset_color}%}"
+zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+
 #-------------------------------------------------------
 # function
 #-------------------------------------------------------
