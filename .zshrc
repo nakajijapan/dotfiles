@@ -293,7 +293,7 @@ case ${UID} in
 *)
     #PROMPT="%{${fg[red]}%}[%/%%]%{${reset_color}%} "
     #PROMPT="%{${fg[red]}%}%B[%n %T] %1/#%{${reset_color}%}%b "
-    PROMPT="%{${fg[red]}%}%B[%n] #%{${reset_color}%}%b"
+    PROMPT="%{${fg[red]}%}%B[%n] #%{${reset_color}%}%b "
     RPROMPT="[%~]"
     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
