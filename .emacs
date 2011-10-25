@@ -1,14 +1,29 @@
 ;;-------------------------------------
-;; 補完関連
+;; 基本機能
 ;;-------------------------------------
+; encoding
+(prefer-coding-system 'utf-8)
+
+;; ファイル読み込み
 (setq load-path (cons "~/.emacs.d/elisp" load-path))
 
 ;; まず、install-elisp のコマンドを使える様にします。
 (require 'install-elisp)
+
 ;; 次に、Elisp ファイルをインストールする場所を指定します。
 (setq install-elisp-repository-directory "~/.emacs.d/elisp/")
+
+;; 選択範囲に色を付ける
+;;(install-elisp "http://taiyaki.org/elisp/sense-region/src/sense-region.el")
+(require 'sense-region)
+(sense-region-on)
+
+;;-------------------------------------
+;; 補完関連
+;;-------------------------------------
 ;; 補完機能をしよう
 (require 'auto-complete)
+
 ;; 補完機能自動起動
 (global-auto-complete-mode t)
 

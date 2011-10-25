@@ -19,4 +19,18 @@ if [ "$TERM_PROGRAM" == "Apple_Terminal" ] && [ -z "$INSIDE_EMACS" ]; then
     }
     PROMPT_COMMAND="update_terminal_cwd; $PROMPT_COMMAND"
 fi
-								    
+
+# alias
+alias where="command -v"
+alias j="jobs -l"
+
+alias lla="ls -al"
+alias la="ls -a"
+alias lf="ls -F"
+alias ll="ls -l"
+
+
+alias du="du -h"
+alias df="df -h"
+
+alias su="su -l"
