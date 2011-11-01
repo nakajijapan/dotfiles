@@ -18,6 +18,13 @@
 (require 'sense-region)
 (sense-region-on)
 
+;; 日付を表示する
+(define-key global-map [f5]
+  '(lambda ()
+     (interactive)
+     (insert (format-time-string "%Y/%m/%d %H:%M:%S"))))
+
+
 ;;-------------------------------------
 ;; 補完関連
 ;;-------------------------------------
