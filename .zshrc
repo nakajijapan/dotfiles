@@ -417,6 +417,8 @@ alias df="df -h"
 alias su="su -l"
 alias xemacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
 
+alias e="emacs"
+
 # rails
 alias r="rails"
 alias rr="rake routes | less"
