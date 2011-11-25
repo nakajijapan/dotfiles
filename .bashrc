@@ -24,6 +24,7 @@ fi
 alias where="command -v"
 alias j="jobs -l"
 
+alias ls="ls --color"
 alias lla="ls -al"
 alias la="ls -a"
 alias lf="ls -F"
