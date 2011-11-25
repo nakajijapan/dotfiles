@@ -66,18 +66,18 @@
 ;; number 自動起動
 ;;(wb-line-number-toggle)
 ;; number
-(require 'linum)
-(setq linum-format
-      '(lambda (line)
-        (let ((fmt
-               (let ((min-w 2)
-                     (w (length (number-to-string
-                                 (count-lines (point-min) (point-max))))))
-                 (concat "%"
-                         (number-to-string (if (< min-w w) w min-w))
-                         "d|"))))
-          (propertize (format fmt line) 'face 'linum))))
-(global-linum-mode)
+;;(require 'linum)
+;;(setq linum-format
+;;      '(lambda (line)
+;;        (let ((fmt
+;;               (let ((min-w 2)
+;;                     (w (length (number-to-string
+;;                                 (count-lines (point-min) (point-max))))))
+;;                 (concat "%"
+;;                         (number-to-string (if (< min-w w) w min-w))
+;;                         "d|"))))
+;;          (propertize (format fmt line) 'face 'linum))))
+;;(global-linum-mode)
 
 ;; 自動バックアップ機能しない
 (setq make-backup-files nil)
