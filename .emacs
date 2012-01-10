@@ -214,7 +214,3 @@
 (setq ruby-indent-level 4)
 (setq ruby-indent-tabs-mode nil)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 28b557098fb1b44f2f291b8ccfc67de6daabc115
