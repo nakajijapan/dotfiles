@@ -24,6 +24,23 @@
      (interactive)
      (insert (format-time-string "%Y/%m/%d %H:%M:%S"))))
 
+;; マウスホイールでスクロール
+(defun scroll-down-with-lines ()
+  ""
+  (interactive)
+  (scroll-down 1)
+  )
+(defun scroll-up-with-lines ()
+   ""
+   (interactive)
+   (scroll-up 1)
+)
+;;　キーバインドは適宜変更
+(global-set-key [wheel-up] 'scroll-down-with-lines)
+(global-set-key [wheel-down] 'scroll-up-with-lines)
+
+;; スクロールステップを 1 に設定
+(setq scroll-step 1)
 
 ;;-------------------------------------
 ;; 補完関連
@@ -95,8 +112,9 @@
 ;; nobackup
 (setq make-backup-files nil)
 
-(setq-default tab-width 4)
-(setq-default tab-width 4 indent-tabs-mode nil)
+;; inent
+(setq-default tab-width 2)
+(setq-default tab-width 2 indent-tabs-mode nil)
 
 ;; タブ, 全角スペース、改行直前の半角スペースを表示する
 (when (require 'jaspace nil t)
@@ -195,3 +213,5 @@
 
 (setq ruby-indent-level 4)
 (setq ruby-indent-tabs-mode nil)
+
+
