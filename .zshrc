@@ -163,6 +163,7 @@ alias rdm='rake db:migrate'
 
 # git
 alias g="git"
+alias gs="git status"
 alias ci="git commit"
 alias cia="git commit --amend"
 alias gl="git pull --rebase"
