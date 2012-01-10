@@ -25,59 +25,11 @@
      (insert (format-time-string "%Y/%m/%d %H:%M:%S"))))
 
 
-;;-------------------------------------
-;; 補完関連
-;;-------------------------------------
-;; 補完機能をしよう
-(require 'auto-complete)
 
-;; 補完機能自動起動
-(global-auto-complete-mode t)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
-;; PHP
-(add-hook  'php-mode-hook
-           (lambda ()
-             (require 'php-completion)
-             (php-completion-mode t)
-             (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
-             (when (require 'auto-complete nil t)
-               (make-variable-buffer-local 'ac-sources)
-               (add-to-list 'ac-sources 'ac-source-php-completion)
-               (auto-complete-mode t))))
 
 ;;-------------------------------------
 ;; 操作機能
 ;;-------------------------------------
-;; number
-;;(require 'wb-line-number)
-;; number 自動起動
-;;(wb-line-number-toggle)
-;; number
-(require 'linum)
-(setq linum-format
-      '(lambda (line)
-        (let ((fmt
-               (let ((min-w 2)
-                     (w (length (number-to-string
-                                 (count-lines (point-min) (point-max))))))
-                 (concat "%"
-                         (number-to-string (if (< min-w w) w min-w))
-                         "d|"))))
-          (propertize (format fmt line) 'face 'linum))))
-(global-linum-mode)
 
 ;; 自動バックアップ機能しない
 (setq make-backup-files nil)
