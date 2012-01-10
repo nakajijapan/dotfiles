@@ -24,12 +24,77 @@
      (interactive)
      (insert (format-time-string "%Y/%m/%d %H:%M:%S"))))
 
+;; マウスホイールでスクロール
+(defun scroll-down-with-lines ()
+  ""
+  (interactive)
+  (scroll-down 1)
+  )
+(defun scroll-up-with-lines ()
+   ""
+   (interactive)
+   (scroll-up 1)
+)
+;;　キーバインドは適宜変更
+(global-set-key [wheel-up] 'scroll-down-with-lines)
+(global-set-key [wheel-down] 'scroll-up-with-lines)
 
+;; スクロールステップを 1 に設定
+(setq scroll-step 1)
 
+;;-------------------------------------
+;; 補完関連
+;;-------------------------------------
+;; 補完機能をしよう
+(require 'auto-complete)
+
+;; 補完機能自動起動
+(global-auto-complete-mode t)
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; PHP
+(add-hook  'php-mode-hook
+           (lambda ()
+             (require 'php-completion)
+             (php-completion-mode t)
+             (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
+             (when (require 'auto-complete nil t)
+               (make-variable-buffer-local 'ac-sources)
+               (add-to-list 'ac-sources 'ac-source-php-completion)
+               (auto-complete-mode t))))
 
 ;;-------------------------------------
 ;; 操作機能
 ;;-------------------------------------
+;; number
+;;(require 'wb-line-number)
+;; number 自動起動
+;;(wb-line-number-toggle)
+;; number
+;;(require 'linum)
+;;(setq linum-format
+;;      '(lambda (line)
+;;        (let ((fmt
+;;               (let ((min-w 2)
+;;                     (w (length (number-to-string
+;;                                 (count-lines (point-min) (point-max))))))
+;;                 (concat "%"
+;;                         (number-to-string (if (< min-w w) w min-w))
+;;                         "d|"))))
+;;          (propertize (format fmt line) 'face 'linum))))
+;;(global-linum-mode)
 
 ;; 自動バックアップ機能しない
 (setq make-backup-files nil)
@@ -47,8 +112,9 @@
 ;; nobackup
 (setq make-backup-files nil)
 
-(setq-default tab-width 4)
-(setq-default tab-width 4 indent-tabs-mode nil)
+;; inent
+(setq-default tab-width 2)
+(setq-default tab-width 2 indent-tabs-mode nil)
 
 ;; タブ, 全角スペース、改行直前の半角スペースを表示する
 (when (require 'jaspace nil t)
@@ -147,3 +213,4 @@
 
 (setq ruby-indent-level 4)
 (setq ruby-indent-tabs-mode nil)
+
