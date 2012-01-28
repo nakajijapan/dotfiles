@@ -290,3 +290,18 @@ zstyle ':completion:*:descriptions' format "%{${fg[black]}${bg[blue]}%}completin
 function hisall { history -E 1 } # 全履歴の一覧を出力する
 alias his="history"
 
+## create new window and rename session to hostname
+#
+if [ $TERM = xterm ]; then
+    function ssh_tmux() {
+        eval server=\${$#}
+        cmd='exec ssh '$@
+        #echo "$server" "ssh $@"
+        #tmux new-window -n $server "ssh $@"
+        tmux new-window -n $server $cmd
+        #tmux rename-session $server
+        #ssh $@
+        echo $cmd
+    }
+    alias ssh=ssh_tmux
+fi
