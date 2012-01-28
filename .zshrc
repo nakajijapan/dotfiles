@@ -189,7 +189,7 @@ esac
 case "${TERM}" in
 xterm|xterm-color)
     export LSCOLORS=gxfxcxdxbxegedabagacad
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30'
     zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
     ;;
 kterm-color)
@@ -257,6 +257,7 @@ setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を�
 #setopt list_types           # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 #setopt auto_menu            # 補完キー連打で順に補完候補を自動で補完
 setopt auto_param_keys       # カッコの対応などを自動的に補完
+#setopt auto_name_dirs
 setopt interactive_comments  # コマンドラインでも # 以降をコメントと見なす
 setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 
@@ -273,10 +274,11 @@ zstyle ':completion:*:default' menu select=2
 # 補完関数の表示を過剰にしてみる
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+#zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate
 zstyle ':completion:*:messages' format $YELLOW'%B%d%b'$DEFAULT
 #
 #zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
-zstyle ':completion:*:warnings' format "%{${fg[white]}}%}No mathes for %d%{${reset_color}%}" 
+zstyle ':completion:*:warnings' format "%{${fg[white]}%}No mathes for %d%{${reset_color}%}" 
 #zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:descriptions' format "%{${fg[black]}${bg[blue]}%}completing %B%d%b%{${reset_color}%}"
 #zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
@@ -305,3 +307,9 @@ if [ $TERM = xterm ]; then
     }
     alias ssh=ssh_tmux
 fi
+
+## cdを打ったら自動的にlsを打ってくれる関数
+#
+function cd(){
+    builtin cd $@ && ls;
+}
