@@ -151,7 +151,6 @@ alias df="df -h"
 
 alias su="su -l"
 alias xemacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
-
 alias e="emacs"
 
 # rails
@@ -236,6 +235,10 @@ esac
 export PATH=/usr/local/bin:/usr/local/sbin/:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
+# ruby RVM
+export PATH=/usr/local/rvm/bin:$PATH
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
 # Editor
 export EDITOR=emacs
 
@@ -298,11 +301,7 @@ if [ $TERM = xterm ]; then
     function ssh_tmux() {
         eval server=\${$#}
         cmd='exec ssh '$@
-        #echo "$server" "ssh $@"
-        #tmux new-window -n $server "ssh $@"
         tmux new-window -n $server $cmd
-        #tmux rename-session $server
-        #ssh $@
         echo $cmd
     }
     alias ssh=ssh_tmux
@@ -313,3 +312,4 @@ fi
 function cd(){
     builtin cd $@ && ls;
 }
+
