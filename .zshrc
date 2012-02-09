@@ -238,6 +238,10 @@ export MANPATH=/opt/local/man:$MANPATH
 # ruby RVM
 export PATH=/usr/local/rvm/bin:$PATH
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+# ruby rbenv
+eval "$(rbenv init -)"
+source ~/.rbenv/completions/rbenv.zsh
+
 
 # Editor
 export EDITOR=emacs
@@ -298,13 +302,13 @@ alias his="history"
 ## create new window and rename session to hostname
 #
 if [ $TERM = xterm ]; then
-    function ssh_tmux() {
-        eval server=\${$#}
-        cmd='exec ssh '$@
-        tmux new-window -n $server $cmd
-        echo $cmd
-    }
-    alias ssh=ssh_tmux
+#    function ssh_tmux() {
+#        eval server=\${$#}
+#        cmd='exec ssh '$@
+#        tmux new-window -n $server $cmd
+#        echo $cmd
+#    }
+#    alias ssh_t=ssh_tmux
 fi
 
 ## cdを打ったら自動的にlsを打ってくれる関数
