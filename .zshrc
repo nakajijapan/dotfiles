@@ -236,8 +236,8 @@ export PATH=/usr/local/bin:/usr/local/sbin/:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
 # ruby RVM
-export PATH=/usr/local/rvm/bin:$PATH
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+#export PATH=/usr/local/rvm/bin:$PATH
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 # ruby rbenv
 eval "$(rbenv init -)"
 source ~/.rbenv/completions/rbenv.zsh
