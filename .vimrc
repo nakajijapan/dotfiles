@@ -133,6 +133,6 @@ Bundle 'L9'
 Bundle 'FuzzyFinder'
 " non github repos
 Bundle 'git://git.wincent.com/command-t.git'
-
+Bundle 'Shougo/unite.vim'
 filetype plugin indent on     " required! 
 
