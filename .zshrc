@@ -299,6 +299,9 @@ zstyle ':completion:*:descriptions' format "%{${fg[black]}${bg[blue]}%}completin
 function hisall { history -E 1 } # 全履歴の一覧を出力する
 alias his="history"
 
+# memory
+function meminfo { top -l 1 | awk '/PhysMem/ {print "Used: " $8 " Free: " $10}' }
+
 ## create new window and rename session to hostname
 #
 if [ $TERM = xterm ]; then
@@ -317,3 +320,21 @@ function cd(){
     builtin cd $@ && ls;
 }
 
+## tmux for rails
+#
+function hoge {
+    echo "hoge";
+    echo "moge";
+    ON="rails";
+    echo $ON;
+}
+function tmux-rails {
+    TMUX_SESSION="rails";
+    tmux new-session -d -s $TMUX_SESSION;
+    tmux new-window -d -k -t $TMUX_SESSION -n "rails-s";
+    tmux new-window -d -k -t $TMUX_SESSION -n "db";
+    tmux new-window -d -k -t $TMUX_SESSION -n "log";
+    tmux new-window -d -k -t $TMUX_SESSION -n "work space";
+    tmux rename-window -t $TMUX_SESSION:0 "rails-s"
+    tmux attach -t $TMUX_SESSION;
+}
