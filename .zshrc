@@ -334,7 +334,7 @@ function tmux-rails {
     tmux new-window -d -k -t $TMUX_SESSION -n "rails-s";
     tmux new-window -d -k -t $TMUX_SESSION -n "db";
     tmux new-window -d -k -t $TMUX_SESSION -n "log";
-    tmux new-window -d -k -t $TMUX_SESSION -n "work space";
+    tmux new-window -d -k -t $TMUX_SESSION -n "work-space";
     tmux rename-window -t $TMUX_SESSION:0 "rails-s"
     tmux attach -t $TMUX_SESSION;
 }
