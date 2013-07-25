@@ -247,8 +247,8 @@ esac
 ## NakajiJapan Setting
 #
 #
-#export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
 export PATH=/usr/local/bin:/usr/local/sbin/:$PATH
+export PATH="/usr/local/share/npm/bin:$PATH" # for npm
 export MANPATH=/opt/local/man:$MANPATH
 
 # ruby RVM
