@@ -251,13 +251,9 @@ export PATH=/usr/local/bin:/usr/local/sbin/:$PATH
 export PATH="/usr/local/share/npm/bin:$PATH" # for npm
 export MANPATH=/opt/local/man:$MANPATH
 
-# ruby RVM
-#export PATH=/usr/local/rvm/bin:$PATH
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 # ruby rbenv
 eval "$(rbenv init -)"
 source ~/.rbenv/completions/rbenv.zsh
-
 
 # Editor
 export EDITOR=emacs
