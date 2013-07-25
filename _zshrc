@@ -193,6 +193,7 @@ alias frs='git flow release start'
 alias frf='git flow release finish'
 alias gw='git wtf'
 alias gc='git clone --recursive'
+alias gd='git diff --color'
 
 case "${TERM}" in
 screen|screen-256color)
