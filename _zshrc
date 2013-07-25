@@ -13,6 +13,20 @@ esac
 
 ########################################
 ## Default shell configuration
+
+## git branch
+#
+function git_branch() {
+  local branch
+
+  if test -z $(git rev-parse --git-dir 2> /dev/null); then
+    branch='--'
+  else
+    branch="${$(git symbolic-ref HEAD 2> /dev/null)#refs/heads/}"
+  fi
+  echo -n "($branch)"
+}
+
 #
 # set prompt
 #
@@ -29,11 +43,12 @@ case ${UID} in
 *)
     #PROMPT="%{${fg[red]}%}[%/%%]%{${reset_color}%} "
     #PROMPT="%{${fg[red]}%}%B[%n %T] %1/#%{${reset_color}%}%b "
-    PROMPT="%{${fg[red]}%}%B[%n] #%{${reset_color}%}%b "
+    #PROMPT="%{${fg[red]}%}%B[%n] $(git_branch) $ %{${reset_color}%}%b "
+    PROMPT="%{${fg[red]}%}%B[%n] %{${fg[blue]}%}$(git_branch) %{${fg[red]}%}$ %{${reset_color}%}%b"
     RPROMPT="[%~]"
     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
         PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
     ;;
 esac
@@ -285,7 +300,7 @@ zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _
 zstyle ':completion:*:messages' format $YELLOW'%B%d%b'$DEFAULT
 #
 #zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
-zstyle ':completion:*:warnings' format "%{${fg[white]}%}No mathes for %d%{${reset_color}%}" 
+zstyle ':completion:*:warnings' format "%{${fg[white]}%}No mathes for %d%{${reset_color}%}"
 #zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:descriptions' format "%{${fg[black]}${bg[blue]}%}completing %B%d%b%{${reset_color}%}"
 #zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
@@ -338,3 +353,4 @@ function tmux-rails {
     tmux rename-window -t $TMUX_SESSION:0 "rails-s"
     tmux attach -t $TMUX_SESSION;
 }
+
