@@ -1,10 +1,9 @@
-
 # My Config Files!!
 
 ## How to use
 
 ```
-cd ~/config
+cd ~/dotfiles
 ruby bin/init.sh
 ```
 
