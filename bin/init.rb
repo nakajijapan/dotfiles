@@ -1,6 +1,6 @@
 require 'fileutils'
 
-targets = File.expand_path("~/config/*")
+targets = File.expand_path("~/dotfiles/*")
 
 p targets
 
@@ -14,7 +14,7 @@ Dir::glob(targets).each do  |target|
 end
 
 puts 'Submodule Initialize' 
-Dir::chdir(File.expand_path('~/config'))
+Dir::chdir(File.expand_path('~/dotfiles'))
 #exec 'pwd'
 system 'git submodule update --init'
 
