@@ -4,6 +4,6 @@
 
 ```
 cd ~/dotfiles
-ruby bin/init.sh
+ruby bin/init.rb
 ```
 
