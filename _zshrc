@@ -16,15 +16,45 @@ esac
 
 ## git branch
 #
-function git_branch() {
-  local branch
-
-  if test -z $(git rev-parse --git-dir 2> /dev/null); then
-    branch='--'
-  else
-    branch="${$(git symbolic-ref HEAD 2> /dev/null)#refs/heads/}"
-  fi
-  echo -n "($branch)"
+# @see https://wiki.archlinux.org/index.php/zsh
+autoload -U colors; colors
+function branch-status-check {
+    local prefix branchname suffix
+        # .gitの中だから除外
+        if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+            return
+        fi
+        branchname=`get-branch-name`
+        # ブランチ名が無いので除外
+        if [[ -z $branchname ]]; then
+            return
+        fi
+        prefix=`get-branch-status` #色だけ返ってくる
+        suffix='%{'${reset_color}'%}'
+        echo ${prefix}${branchname}${suffix}' '
+}
+function get-branch-name {
+    # gitディレクトリじゃない場合のエラーは捨てます
+    echo `git rev-parse --abbrev-ref HEAD 2> /dev/null`
+}
+function get-branch-status {
+    local res color
+        output=`git status 2> /dev/null`
+        if [[ -n `echo $output | grep "^nothing to commit"` ]]; then
+            res=':' # status Clean
+            color='%{'${fg[green]}'%}'
+        elif [[ -n `echo $output | grep "^# Untracked files:"` ]]; then
+            res='?:' # Untracked
+            color='%{'${fg[yellow]}'%}'
+        elif [[ -n `echo $output | grep "^# Changes not staged for commit:"` ]]; then
+            res='M:' # Modified
+            color='%{'${fg[red]}'%}'
+        else
+            res='A:' # Added to commit
+            color='%{'${fg[cyan]}'%}'
+        fi
+        # echo ${color}${res}'%{'${reset_color}'%}'
+        echo ${color} # 色だけ返す
 }
 
 #
@@ -44,7 +74,9 @@ case ${UID} in
     #PROMPT="%{${fg[red]}%}[%/%%]%{${reset_color}%} "
     #PROMPT="%{${fg[red]}%}%B[%n %T] %1/#%{${reset_color}%}%b "
     #PROMPT="%{${fg[red]}%}%B[%n] $(git_branch) $ %{${reset_color}%}%b "
-    PROMPT="%{${fg[red]}%}%B[%n] %{${fg[blue]}%}$(git_branch) %{${fg[red]}%}$ %{${reset_color}%}%b"
+    #PROMPT="%{${fg[red]}%}%B[%n] %{${fg[blue]}%}$(branch-status-check) %{${fg[red]}%}$ %{${reset_color}%}%b"
+    PROMPT=$'%{${fg[red]}%}%B[%n] %{${fg[blue]}%}`branch-status-check`%{${fg[red]}%}$ %{${reset_color}%}%b'
+
     RPROMPT="[%~]"
     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
@@ -52,6 +84,8 @@ case ${UID} in
         PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
     ;;
 esac
+
+setopt prompt_subst
 
 ########################################
 # auto change directory
