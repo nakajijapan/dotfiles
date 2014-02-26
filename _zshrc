@@ -362,12 +362,6 @@ function cd(){
 
 ## tmux for rails
 #
-function hoge {
-    echo "hoge";
-    echo "moge";
-    ON="rails";
-    echo $ON;
-}
 function tmux-rails {
     TMUX_SESSION="rails";
     tmux new-session -d -s $TMUX_SESSION;
