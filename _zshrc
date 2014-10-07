@@ -373,3 +373,14 @@ function tmux-rails {
     tmux attach -t $TMUX_SESSION;
 }
 
+function tmux-full {
+    TMUX_SESSION="full";
+    tmux new-session -d -s $TMUX_SESSION;
+    #tmux new-window -d -k -t $TMUX_SESSION -n "vagrant";
+    tmux new-window -d -k -t $TMUX_SESSION -n "web";
+    tmux new-window -d -k -t $TMUX_SESSION -n "api";
+    tmux new-window -d -k -t $TMUX_SESSION -n "ios";
+    tmux new-window -d -k -t $TMUX_SESSION -n "working";
+    tmux rename-window -t $TMUX_SESSION:0 "vagrant"
+    tmux attach -t $TMUX_SESSION;
+}
