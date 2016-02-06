@@ -35,3 +35,6 @@ alias du="du -h"
 alias df="df -h"
 
 alias su="su -l"
+
+# added by travis gem
+[ -f /Users/nakajijapan/.travis/travis.sh ] && source /Users/nakajijapan/.travis/travis.sh
