@@ -276,6 +276,7 @@ esac
 #
 #
 export PATH=~/dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
+export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
 export PATH="/usr/local/share/npm/bin:$PATH" # for npm
 export MANPATH=/opt/local/man:$MANPATH
 
@@ -384,3 +385,6 @@ function tmux-full {
     tmux rename-window -t $TMUX_SESSION:0 "vagrant"
     tmux attach -t $TMUX_SESSION;
 }
+
+# added by travis gem
+[ -f /Users/nakajijapan/.travis/travis.sh ] && source /Users/nakajijapan/.travis/travis.sh
