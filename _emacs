@@ -78,24 +78,6 @@
 ;;-------------------------------------
 ;; 操作機能
 ;;-------------------------------------
-;; number
-;;(require 'wb-line-number)
-;; number 自動起動
-;;(wb-line-number-toggle)
-;; number
-;;(require 'linum)
-;;(setq linum-format
-;;      '(lambda (line)
-;;        (let ((fmt
-;;               (let ((min-w 2)
-;;                     (w (length (number-to-string
-;;                                 (count-lines (point-min) (point-max))))))
-;;                 (concat "%"
-;;                         (number-to-string (if (< min-w w) w min-w))
-;;                         "d|"))))
-;;          (propertize (format fmt line) 'face 'linum))))
-;;(global-linum-mode)
-
 ;; 自動バックアップ機能しない
 (setq make-backup-files nil)
 
@@ -150,6 +132,7 @@
                                    :strike-through nil
                                    :underline t))
                                  (t (:foreground "purple"
+
                                      :background "unspecified"
                                      :strike-through nil
                                      :underline t))))
@@ -172,18 +155,23 @@
 (add-to-list 'auto-mode-alist '("\\.rb$latex " . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-;;(setq auto-mode-alist (cons '("\\.rb$" . ruby-mode) auto-mode-alist))
-;;(setq interpreter-mode-alist (append '(("ruby" . ruby-mode)) interpreter-mode-alist))
-;;(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
-;;(autoload 'inf-ruby-keys "inf-ruby" "Set local key defs for inf-ruby in ruby-mode")
-;;(add-hook 'ruby-mode-hook '(lambda () (inf-ruby-keys)))
-;;(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
 (setq ruby-indent-level 2)
-;;(setq ruby-indent-tabs-mode nil)
-;;
-;;
 
 
 (add-hook 'makefile-mode-hook
           (function (lambda ()
                      (setq indent-tabs-mode t))))
+
+;;; 種類ごとの色
+(add-hook 'font-lock-mode-hook
+  '(lambda ()
+     (set-face-foreground 'font-lock-comment-face "Green")
+     (set-face-foreground 'font-lock-string-face "#DB2C38")
+     (set-face-foreground 'font-lock-keyword-face "#B21889")
+     (set-face-foreground 'font-lock-variable-name-face "LightGoldenrod")
+     (set-face-foreground 'font-lock-type-face "#00A0BE")
+     (set-face-foreground 'font-lock-constant-face "#00A0BE")
+     (set-face-foreground 'font-lock-warning-face "Pink")
+     )
+  )
+

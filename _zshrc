@@ -223,6 +223,9 @@ alias gw='git wtf'
 alias gc='git clone --recursive'
 alias gd='git diff --color'
 
+# hub
+alias hubbrowsepull='hub browse -- pull/$(git symbolic-ref --short HEAD)'
+
 case "${TERM}" in
 screen|screen-256color)
     TERM=xterm
@@ -343,18 +346,6 @@ alias his="history"
 # memory
 function meminfo { top -l 1 | awk '/PhysMem/ {print "Used: " $8 " Free: " $10}' }
 
-## create new window and rename session to hostname
-#
-if [ $TERM = xterm ]; then
-#    function ssh_tmux() {
-#        eval server=\${$#}
-#        cmd='exec ssh '$@
-#        tmux new-window -n $server $cmd
-#        echo $cmd
-#    }
-#    alias ssh_t=ssh_tmux
-fi
-
 ## cdを打ったら自動的にlsを打ってくれる関数
 #
 function cd(){
@@ -366,23 +357,12 @@ function cd(){
 function tmux-rails {
     TMUX_SESSION="rails";
     tmux new-session -d -s $TMUX_SESSION;
-    tmux new-window -d -k -t $TMUX_SESSION -n "rails-s";
+    tmux new-window -d -k -t $TMUX_SESSION -n "rails";
     tmux new-window -d -k -t $TMUX_SESSION -n "db";
     tmux new-window -d -k -t $TMUX_SESSION -n "log";
-    tmux new-window -d -k -t $TMUX_SESSION -n "work space";
-    tmux rename-window -t $TMUX_SESSION:0 "rails-s"
-    tmux attach -t $TMUX_SESSION;
-}
-
-function tmux-full {
-    TMUX_SESSION="full";
-    tmux new-session -d -s $TMUX_SESSION;
-    #tmux new-window -d -k -t $TMUX_SESSION -n "vagrant";
-    tmux new-window -d -k -t $TMUX_SESSION -n "web";
-    tmux new-window -d -k -t $TMUX_SESSION -n "api";
     tmux new-window -d -k -t $TMUX_SESSION -n "ios";
-    tmux new-window -d -k -t $TMUX_SESSION -n "working";
-    tmux rename-window -t $TMUX_SESSION:0 "vagrant"
+    tmux new-window -d -k -t $TMUX_SESSION -n "ios-sub";
+    tmux rename-window -t $TMUX_SESSION:0 "rails"
     tmux attach -t $TMUX_SESSION;
 }
 
