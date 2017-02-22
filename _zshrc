@@ -187,8 +187,6 @@ alias lla="ls -al"
 alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
-
-
 alias du="du -h"
 alias df="df -h"
 
@@ -212,13 +210,6 @@ alias gl="git pull --rebase"
 alias pus="git push"
 alias c="git checkout"
 alias b='git branch'
-alias f='git flow'
-alias ff='git flow feature'
-alias ffs='git flow feature start'
-alias fff='git flow feature finish'
-alias fr='git flow release'
-alias frs='git flow release start'
-alias frf='git flow release finish'
 alias gw='git wtf'
 alias gc='git clone --recursive'
 alias gd='git diff --color'
