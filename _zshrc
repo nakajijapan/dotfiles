@@ -362,6 +362,11 @@ function tmux-rails {
 
 # xcode open
 function open-xcode-project() {
-  open *.xcworkspace || open *.xcodeproj || echo 'fatal: Not a Xcode repository'
+  open -a Xcode *.xcworkspace || open -a Xcode *.xcodeproj || echo 'fatal: Not a Xcode repository'
+}
+function open-xcode-beta-project() {
+  open -a Xcode\ 8 *.xcworkspace || open -a Xcode-9.0 *.xcodeproj || echo 'fatal: Not a Xcode repository'
 }
 alias xc='open-xcode-project'
+alias xcb='open-xcode-beta-project'
+
