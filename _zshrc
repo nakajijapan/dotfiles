@@ -371,3 +371,6 @@ function open-xcode-beta-project() {
 alias xc='open-xcode-project'
 alias xcb='open-xcode-beta-project'
 
+function ghpage() {
+  open https://github.com/`git remote -v | cut -d':' -f 2 | cut -d' ' -f 1 | cut -d'.' -f 1 | head -1`/pull/`git current`
+}
