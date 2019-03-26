@@ -1,0 +1,11 @@
+[user]
+	name = nakajijapan
+	email = pp.kupepo.gattyanmo@gmail.com
+[alias]
+    current = rev-parse --abbrev-ref HEAD
+    changes = !git diff --name-status $(git merge-base master HEAD)
+    c = checkout
+[github]
+	user = nakajijapan
+[ghi]
+	token = !security find-internet-password -a nakajijapan -s github.com -l 'ghi token' -w
