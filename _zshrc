@@ -271,8 +271,11 @@ esac
 #
 export PATH=~/dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
 export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
-export PATH="/usr/local/share/npm/bin:$PATH" # for npm
 export MANPATH=/opt/local/man:$MANPATH
+
+# enyenv
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
 
 # ruby rbenv
 [[ -d ~/.rbenv  ]] && \
