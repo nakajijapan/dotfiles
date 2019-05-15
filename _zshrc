@@ -275,7 +275,7 @@ export MANPATH=/opt/local/man:$MANPATH
 
 # enyenv
 export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
+eval "$(anyenv init - zsh)"
 
 # ruby rbenv
 [[ -d ~/.rbenv  ]] && \
