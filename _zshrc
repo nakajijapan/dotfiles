@@ -261,7 +261,6 @@ xterm|xterm-color|kterm|kterm-color)
     ;;
 esac
 
-
 ## load user .zshrc configuration file
 #
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
@@ -273,6 +272,9 @@ export PATH=~/dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
 export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
+export PATH=$PATH:/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/bin
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/
+
 # enyenv
 export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init - zsh)"
@@ -282,8 +284,16 @@ eval "$(anyenv init - zsh)"
   export PATH=${HOME}/.rbenv/bin:${PATH} && \
   eval "$(rbenv init -)"
 
+# GO
+export GOENV_ROOT=$HOME/.goenv
+export PATH=$GOENV_ROOT/bin:$PATH
+eval "$(goenv init -)"
+
 # Editor
 export EDITOR=emacs
+
+# direnv
+eval "$(direnv hook zsh)"
 
 #色の定義
 local DEFAULT=$'%{^[[m%}'$
@@ -380,4 +390,3 @@ function ghpage() {
 function ghepage() {
   open https://`git config --local remote.origin.url | cut -d: -f1 | cut -d@ -f2`/`git remote -v | cut -d':' -f 2 | cut -d' ' -f 1 | cut -d'.' -f 1 | head -1`/pull/`git current`
 }
-
