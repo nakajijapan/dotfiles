@@ -29,6 +29,7 @@ function branch-status-check {
         if [[ -z $branchname ]]; then
             return
         fi
+
         prefix=`get-branch-status` #色だけ返ってくる
         suffix='%{'${reset_color}'%}'
         echo ${prefix}${branchname}${suffix}' '
@@ -288,6 +289,11 @@ eval "$(anyenv init - zsh)"
 export GOENV_ROOT=$HOME/.goenv
 export PATH=$GOENV_ROOT/bin:$PATH
 eval "$(goenv init -)"
+
+# node
+export NODENV_ROOT=$HOME/.nodenv
+export PATH=$NODENV_ROOT/bin:$PATH
+eval "$(nodenv init -)"
 
 # Editor
 export EDITOR=emacs
