@@ -271,6 +271,7 @@ esac
 #
 export PATH=~/dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
 export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
 export PATH=$PATH:/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/bin
