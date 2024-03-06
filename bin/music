@@ -1,0 +1,206 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+#
+# CLI music controller for Spotify and Apple Music
+# By default affects whichever one is running, preferring Spotify
+# if both are. Change the order of KNOWN_PLAYERS to reverse that.
+#
+# If the first argument is either "music" or "spotify," it will
+# target that app. If the app is not running, it will be launched.
+# When no app is specified and neither are running, it returns nothing
+# and does not launch an app.
+#
+# When run with no argument, it returns the current track and artist.
+# It also accepts the following commands:
+#
+# - play
+# - pause
+# - next
+# - prev
+# - vol [0-100]
+# - mute
+
+KNOWN_PLAYERS = ["Spotify", "Music"]
+
+class Players
+  attr_accessor :apps
+  attr_reader :player
+
+  # @param apps array of (string) app names
+  def initialize(apps)
+    @apps = apps
+    @player = active
+  end
+
+  # @param app (string) app name
+  # @return boolean app is recognized
+  def legit?(app)
+    @apps.map {|a| a.downcase }.include?(app)
+  end
+
+  # Are any of the known apps running?
+  # @return boolean
+  def any?
+    not %x{ps ax -o command=|grep -E "(#{@apps.join('|')})\.app/Contents/MacOS/\\1"|grep -v grep}.strip.empty?
+  end
+
+  # Return first active (running and playing) player in the array
+  # @return Player or nil
+  def active
+    if self.any?
+      active_player = nil
+      @apps.each {|app|
+        player = Player.new(app)
+        if player.active?
+          active_player = player
+          break
+        end
+      }
+      active_player
+    else
+      nil
+    end
+  end
+
+  # Return first running player in the array
+  # @return Player or nil
+  def running
+    if self.any?
+      active_player = nil
+      @apps.each {|app|
+        player = Player.new(app)
+        if player.running?
+          active_player = player
+          break
+        end
+      }
+      active_player
+    else
+      nil
+    end
+  end
+end
+
+class Player < String
+  attr_reader :app
+
+  def initialize(app)
+    @app = app.capitalize
+  end
+
+  # App is running and playing
+  # @return boolean
+  def active?
+    self.running? && self.playing?
+  end
+
+  # Is app running?
+  # @return boolean
+  def running?
+    not `ps ax|grep "#{@app}.app/Contents/MacOS/#{@app}"|grep -v grep`.strip.empty?
+  end
+
+  # Is player state playing?
+  # @return boolean
+  def playing?
+    res = %x{osascript -e 'tell application "#{@app}" to return (player state is equal to playing)'}.strip
+    res == 'true'
+  end
+
+  # Currently playing track
+  # @return hash {:title, :artist}
+  def track
+    res = %x{osascript -e 'tell application "#{@app}" to return (name of current track) & "::" & (artist of current track)'}.strip.split(/::/)
+    "#{res[0]} — #{res[1]} (#{@app})"
+  end
+
+  # Pause the active player
+  # @return success message
+  def pause
+    %x{osascript -e 'tell application "#{@app}" to pause'}.strip
+    "#{@app} paused"
+  end
+
+  # Play the active player
+  # @return track title string
+  def play
+    %x{osascript -e 'tell application "#{@app}" to play'}.strip
+    track
+  end
+
+  # Skip to the next track in active player
+  # @return string with new track
+  def next
+    %x{osascript -e 'tell application "#{@app}" to next track'}.strip
+    track
+  end
+
+  # Skip to the previous track in active player
+  # @return string with new track
+  def prev
+    %x{osascript -e 'tell application "#{@app}" to previous track'}.strip
+    track
+  end
+
+  # Get active player volume
+  # @return string with current volume
+  def volume
+    res = %x{osascript -e 'tell application "#{@app}" to return sound volume'}.strip
+    "#{@app} Volume: #{res}%"
+  end
+
+  # Set active player volume
+  # @return string with new volume
+  def set_volume(level)
+    %x{osascript -e 'tell application "#{@app}" to set sound volume to #{level.to_i}'}
+    volume
+  end
+
+  # Set active player volume to 0
+  # @return string with new volume
+  def mute
+    set_volume(0)
+    volume
+  end
+end
+
+players = Players.new(KNOWN_PLAYERS)
+
+if players.legit?(ARGV[0])
+  player = Player.new(ARGV.shift)
+else
+  player = players.running
+end
+
+if player.nil?
+  $stderr.puts "No music app running"
+  Process.exit 1
+end
+
+case ARGV[0]
+when /play/
+  puts player.play
+when /pause/
+  puts player.pause
+when /(fwd|next)/
+  puts player.next
+when /(back|prev)/
+  puts player.prev
+when /vol(ume)?/
+  if ARGV[1].nil?
+    puts player.volume
+  else
+    puts player.set_volume ARGV[1].to_i
+  end
+when /mute/
+  puts player.mute
+when /(player|which)/
+  puts player.app
+else
+  unless player.active?
+    $stderr.puts "No track playing"
+  else
+    puts player.track
+    Process.exit 0
+  end
+end

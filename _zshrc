@@ -274,8 +274,11 @@ export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
-export PATH=$PATH:/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/bin
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/
+#export PATH=$PATH:/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/bin
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/
+export PATH=$PATH:/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home/bin
+export PATH=$PATH:/Library/Java/platform-tools/
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home/
 
 # enyenv
 export PATH="$HOME/.anyenv/bin:$PATH"
@@ -301,6 +304,9 @@ export EDITOR=emacs
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# tfenv
+export PATH="$HOME/.tfenv/bin:$PATH"
 
 #色の定義
 local DEFAULT=$'%{^[[m%}'$
