@@ -308,6 +308,9 @@ eval "$(direnv hook zsh)"
 # tfenv
 export PATH="$HOME/.tfenv/bin:$PATH"
 
+# Poetry
+export PATH="$HOME/.local/bin:$PATH"
+
 #色の定義
 local DEFAULT=$'%{^[[m%}'$
 local RED=$'%{^[[1;31m%}'$
@@ -403,3 +406,16 @@ function ghpage() {
 function ghepage() {
   open https://`git config --local remote.origin.url | cut -d: -f1 | cut -d@ -f2`/`git remote -v | cut -d':' -f 2 | cut -d' ' -f 1 | cut -d'.' -f 1 | head -1`/pull/`git current`
 }
+
+#-------------------------------------------------------
+# _k
+#-------------------------------------------------------
+# asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
+export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+#export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
+
+
