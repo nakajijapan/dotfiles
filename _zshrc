@@ -274,11 +274,9 @@ export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
-#export PATH=$PATH:/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/bin
-#export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/
+# JAVA
 export PATH=$PATH:/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home/bin
 export PATH=$PATH:/Library/Java/platform-tools/
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home/
 
 # enyenv
 export PATH="$HOME/.anyenv/bin:$PATH"
@@ -410,12 +408,18 @@ function ghepage() {
 #-------------------------------------------------------
 # _k
 #-------------------------------------------------------
-# asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+# mise 
+#   needs to be before anyenv to take priority
+#eval "$(mise activate)"
+#eval "$(mise activate zsh)"
 
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 export ANDROID_SDK_ROOT=~/Library/Android/sdk
 export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
 #export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
+#export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+#export PATH="$PATH:/Users/daichi.nakajima/Library/Android/sdk/platform-tools"
 
+# gh
+eval "$(gh completion -s zsh)"
 
