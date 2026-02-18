@@ -1,28 +1,54 @@
 #!/bin/bash
+set -euo pipefail
 
-# 対象のブランチを取得
-branches=$(git branch --format '%(refname:short)' | grep -vE "^(main|release|study.*|$(git branch --show-current))$")
+echo "🚀 ブランチ削除スクリプトを開始します..."
 
-# 対象のブランチがない場合
-if [ -z "$branches" ]; then
-  echo "削除対象のブランチはありません。"
+# 現在のブランチ名を取得
+current_branch=$(git branch --show-current)
+if [ -z "$current_branch" ]; then
+  echo "⚠️ エラー: 現在のブランチを特定できませんでした。" >&2
+  exit 1
+fi
+echo "🔍 現在のブランチ: $current_branch"
+
+# 削除対象のブランチ一覧を取得
+branches_to_delete=$(git branch --format '%(refname:short)' | grep -vE "^(main|release|study.*|$(git branch --show-current))$" || true)
+
+
+if [ -z "$branches_to_delete" ]; then
+  echo "✅ 削除対象のブランチはありません。"
   exit 0
 fi
 
-# 削除対象のブランチを表示
-echo "以下のブランチを削除対象としています:"
-echo "$branches"
+# 削除対象のブランチ一覧を表示
+echo "🗑️ 以下のブランチが削除対象です:"
+echo "$branches_to_delete"
 echo ""
 
-# 確認プロンプト
-read -p "これらのブランチを削除しますか？ (yes/no): " confirm
+# ユーザーに確認
+read -r -p "❓ 上記ブランチを削除しますか？ (y/N): " answer
+case "$answer" in
+  [yY][eE][sS]|[yY])
+    echo "🔥 ブランチを削除します..."
+    ;;
+  *)
+    echo "❌ 削除を中止しました。"
+    exit 0
+    ;;
+esac
 
-if [ "$confirm" != "yes" ]; then
-  echo "削除処理を中止しました。"
-  exit 0
-fi
+# 各ブランチを削除
+while IFS= read -r branch; do
+  # 空行は無視
+  [ -z "$branch" ] && continue
+  echo "🗑️ '$branch' を削除中..."
 
-# 削除処理を実行
-echo "削除を実行します..."
-echo "$branches" | xargs -n 1 git branch -D
-echo "削除が完了しました。"
+  if git branch -D "$branch"; then
+    echo "✅ '$branch' を削除しました。"
+  else
+    echo "⚠️ '$branch' の削除に失敗しました。"
+  fi
+
+done <<< "$branches_to_delete"
+
+echo "🎉 削除処理が完了しました。"
